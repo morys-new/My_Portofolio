@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Puskesmas Karangan Dalam</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div>
+          <div class="logo-text">Puskesmas</div>
+          <div class="logo-sub">Karangan Dalam</div>
+        </div>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu Utama</div>
+      <a href="dashboard.html" class="sidebar-link active"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="pasien.html" class="sidebar-link"><i class="bi bi-people-fill"></i><span>Data Pasien</span><span class="sidebar-badge" id="pasien-count">0</span></a>
+      <a href="tambah-pasien.html" class="sidebar-link"><i class="bi bi-person-plus-fill"></i><span>Pendaftaran Baru</span></a>
+      <div class="nav-section-label">Layanan</div>
+      <a href="poli.html" class="sidebar-link"><i class="bi bi-hospital"></i><span>Poli & Antrian</span></a>
+      <a href="laporan.html" class="sidebar-link"><i class="bi bi-bar-chart-line-fill"></i><span>Laporan</span></a>
+      <div class="nav-section-label">Sistem</div>
+      <a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+        <div>
+          <p class="user-name" id="user-name">Loading...</p>
+          <p class="user-role" id="user-role">Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">
+        <h2>Dashboard</h2>
+        <p id="today-date">—</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="tambah-pasien.html" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+          <i class="bi bi-plus-lg"></i> Pasien Baru
+        </a>
+        <a href="#" class="btn-icon" onclick="logout(); return false;" title="Keluar"><i class="bi bi-box-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon teal"><i class="bi bi-people-fill"></i></div>
+            <div>
+              <div class="stat-value" id="stat-total">0</div>
+              <div class="stat-label">Total Pasien</div>
+              <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> Data aktif</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="bi bi-person-badge-fill"></i></div>
+            <div>
+              <div class="stat-value" id="stat-baru">0</div>
+              <div class="stat-label">Pasien Baru</div>
+              <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> Hari ini</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="bi bi-clipboard2-pulse-fill"></i></div>
+            <div>
+              <div class="stat-value" id="stat-rawat">0</div>
+              <div class="stat-label">Rawat Jalan</div>
+              <div class="stat-trend up"><i class="bi bi-circle-fill" style="font-size:8px"></i> Aktif</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+            <div>
+              <div class="stat-value" id="stat-selesai">0</div>
+              <div class="stat-label">Selesai Berobat</div>
+              <div class="stat-trend" style="color:var(--text-muted)">Total kunjungan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-lg-7">
+          <div class="card-section h-100">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-bar-chart-line me-2 text-primary"></i>Statistik Kunjungan</h5>
+              <span class="badge bg-light text-muted" style="font-size:11px;">7 Hari Terakhir</span>
+            </div>
+            <div class="p-3">
+              <div class="chart-area" id="chart-bars"></div>
+              <div class="d-flex gap-2 mt-2" id="chart-labels"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card-section h-100">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-hospital me-2 text-primary"></i>Sebaran Per Poli</h5>
+            </div>
+            <div class="p-3" id="poli-stats"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-8">
+          <div class="card-section">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-clock-history me-2 text-primary"></i>Pasien Terdaftar Terakhir</h5>
+              <a href="pasien.html" class="btn btn-outline-primary btn-sm">Lihat Semua</a>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom mb-0">
+                <thead>
+                  <tr>
+                    <th>No. RM</th>
+                    <th>Nama Pasien</th>
+                    <th>Keluhan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-section">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-activity me-2 text-primary"></i>Aktivitas Terbaru</h5>
+            </div>
+            <div class="p-3" id="activity-list"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="app-footer">
+      <p>&copy; 2026 Puskesmas Karangan Dalam. Hak Cipta Dilindungi.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const user = checkAuth();
+  if (!user) return;
+
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  const data = getPasienData();
+
+  document.getElementById('stat-total').textContent = data.length;
+  document.getElementById('stat-baru').textContent = data.filter(p => p.status === 'baru').length;
+  document.getElementById('stat-rawat').textContent = data.filter(p => p.status === 'rawat').length;
+  document.getElementById('stat-selesai').textContent = data.filter(p => p.status === 'selesai').length;
+  document.getElementById('pasien-count').textContent = data.length;
+
+  const days = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const vals = [8,12,6,15,10,7,14];
+  const max = Math.max(...vals);
+  const bars = document.getElementById('chart-bars');
+  const labels = document.getElementById('chart-labels');
+  days.forEach((d, i) => {
+    const pct = (vals[i] / max) * 100;
+    bars.innerHTML += `<div class="chart-bar" style="height:${pct}%" title="${d}: ${vals[i]} pasien"></div>`;
+    labels.innerHTML += `<div style="flex:1;text-align:center;font-size:11px;color:var(--text-muted)">${d}</div>`;
+  });
+
+  const poliCount = {};
+  data.forEach(p => { poliCount[p.poli] = (poliCount[p.poli] || 0) + 1; });
+  const colors = { 'Umum': 'var(--primary)', 'KIA': 'var(--info)', 'Anak': 'var(--warning)', 'Gigi': 'var(--success)' };
+  let poliHTML = '';
+  Object.entries(poliCount).forEach(([poli, cnt]) => {
+    const pct = Math.round((cnt / data.length) * 100);
+    poliHTML += `
+      <div class="mb-3">
+        <div class="d-flex justify-content-between mb-1">
+          <span style="font-size:13px;font-weight:600;">Poli ${poli}</span>
+          <span style="font-size:13px;color:var(--text-muted)">${cnt} pasien</span>
+        </div>
+        <div class="progress"><div class="progress-bar" style="width:${pct}%;background:${colors[poli]||'var(--primary)'}"></div></div>
+      </div>`;
+  });
+  document.getElementById('poli-stats').innerHTML = poliHTML;
+
+  const recent = [...data].reverse().slice(0, 5);
+  const tbody = document.getElementById('recent-table');
+  tbody.innerHTML = recent.map(p => `
+    <tr>
+      <td><span style="font-size:12px;font-weight:600;color:var(--primary)">${p.no_rm}</span></td>
+      <td>
+        <div style="font-weight:600;font-size:13px;">${p.nama}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${p.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'} · ${calcAge(p.tanggal_lahir)}</div>
+      </td>
+      <td style="max-width:160px;font-size:12px;color:var(--text-muted)">${p.keluhan}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>
+        <a href="detail-pasien.html?id=${p.id}" class="btn-sm-action view"><i class="bi bi-eye"></i></a>
+      </td>
+    </tr>
+  `).join('');
+
+  const actColors = ['var(--primary)', 'var(--success)', 'var(--info)', 'var(--warning)', 'var(--danger)'];
+  const acts = recent.map((p, i) => ({
+    text: `<strong>${p.nama}</strong> mendaftar di Poli ${p.poli}`,
+    time: `${i + 1} jam yang lalu`,
+    color: actColors[i % actColors.length]
+  }));
+  document.getElementById('activity-list').innerHTML = acts.map(a => `
+    <div class="activity-item">
+      <div class="activity-dot" style="background:${a.color}"></div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time"><i class="bi bi-clock me-1"></i>${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+});
+</script>
+  <script src="../../protect.js"></script>
+</body>
+</html>

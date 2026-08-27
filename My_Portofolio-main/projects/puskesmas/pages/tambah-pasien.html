@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pendaftaran Pasien — Puskesmas Karangan Dalam</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><div class="logo-text">Puskesmas</div><div class="logo-sub">Karangan Dalam</div></div>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu Utama</div>
+      <a href="dashboard.html" class="sidebar-link"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="pasien.html" class="sidebar-link"><i class="bi bi-people-fill"></i><span>Data Pasien</span><span class="sidebar-badge" id="pasien-count">0</span></a>
+      <a href="tambah-pasien.html" class="sidebar-link active"><i class="bi bi-person-plus-fill"></i><span>Pendaftaran Baru</span></a>
+      <div class="nav-section-label">Layanan</div>
+      <a href="poli.html" class="sidebar-link"><i class="bi bi-hospital"></i><span>Poli & Antrian</span></a>
+      <a href="laporan.html" class="sidebar-link"><i class="bi bi-bar-chart-line-fill"></i><span>Laporan</span></a>
+      <div class="nav-section-label">Sistem</div>
+      <a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+        <div><p class="user-name" id="user-name">Loading...</p><p class="user-role" id="user-role">Admin</p></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">
+        <h2>Pendaftaran Pasien Baru</h2>
+        <p>Isi formulir data pasien dengan lengkap dan benar</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="pasien.html" class="btn-icon" title="Kembali ke Data Pasien"><i class="bi bi-arrow-left"></i></a>
+        <a href="#" class="btn-icon" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card-section">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-person-plus me-2 text-primary"></i>Formulir Pendaftaran</h5>
+              <span class="badge" style="background:var(--accent);color:var(--primary);font-size:12px" id="no-rm-preview">No. RM: —</span>
+            </div>
+            <div class="p-4">
+              <div class="form-section-title"><i class="bi bi-person me-2"></i>Data Identitas Pasien</div>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                  <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap"/>
+                  <div class="invalid-feedback">Nama wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">No. KTP / NIK</label>
+                  <input type="text" id="nik" class="form-control" placeholder="16 digit NIK" maxlength="16"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                  <input type="date" id="tanggal_lahir" class="form-control" onchange="updateUsia()"/>
+                  <div class="invalid-feedback">Tanggal lahir wajib diisi.</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Usia</label>
+                  <input type="text" id="usia-display" class="form-control" readonly placeholder="Otomatis terisi" style="background:var(--accent)"/>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                  <select id="jenis_kelamin" class="form-select">
+                    <option value="">-- Pilih --</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                  </select>
+                  <div class="invalid-feedback">Jenis kelamin wajib dipilih.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">No. Telepon / HP</label>
+                  <div class="input-group">
+                    <span class="input-group-text">+62</span>
+                    <input type="tel" id="no_hp" class="form-control" placeholder="8xx-xxxx-xxxx"/>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Golongan Darah</label>
+                  <select id="gol_darah" class="form-select">
+                    <option value="">Tidak diketahui</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Alamat Lengkap <span class="text-danger">*</span></label>
+                  <textarea id="alamat" class="form-control" rows="2" placeholder="Jl. Nama Jalan, No. ..., RT/RW, Kelurahan, Kecamatan, Kota"></textarea>
+                  <div class="invalid-feedback">Alamat wajib diisi.</div>
+                </div>
+              </div>
+
+              <div class="form-section-title"><i class="bi bi-clipboard2-pulse me-2"></i>Data Kunjungan</div>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label">Poli Tujuan <span class="text-danger">*</span></label>
+                  <select id="poli" class="form-select">
+                    <option value="">-- Pilih Poli --</option>
+                    <option value="Umum">Poli Umum</option>
+                    <option value="KIA">Poli KIA (Kesehatan Ibu & Anak)</option>
+                    <option value="Anak">Poli Anak</option>
+                    <option value="Gigi">Poli Gigi</option>
+                  </select>
+                  <div class="invalid-feedback">Poli wajib dipilih.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Jenis Kunjungan</label>
+                  <select id="jenis_kunjungan" class="form-select">
+                    <option value="Umum">Pasien Umum</option>
+                    <option value="BPJS">BPJS Kesehatan</option>
+                    <option value="Jamkesda">Jamkesda</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Tanggal Kunjungan</label>
+                  <input type="date" id="tanggal_daftar" class="form-control"/>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Status Pasien</label>
+                  <select id="status" class="form-select">
+                    <option value="baru">Pasien Baru</option>
+                    <option value="aktif">Pasien Lama / Aktif</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Keluhan Utama <span class="text-danger">*</span></label>
+                  <textarea id="keluhan" class="form-control" rows="3" placeholder="Deskripsikan keluhan pasien secara singkat dan jelas..."></textarea>
+                  <div class="invalid-feedback">Keluhan wajib diisi.</div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-primary px-4" onclick="simpanPasien()">
+                  <i class="bi bi-check2-circle me-2"></i>Simpan & Daftarkan
+                </button>
+                <button type="button" class="btn btn-outline-secondary" onclick="resetForm()">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+                </button>
+                <a href="pasien.html" class="btn btn-light ms-auto">
+                  <i class="bi bi-x me-1"></i>Batal
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-section mb-3">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-info-circle me-2 text-primary"></i>Informasi</h5>
+            </div>
+            <div class="p-3">
+              <div class="d-flex align-items-start gap-3 mb-3 p-3" style="background:var(--accent);border-radius:var(--radius-sm)">
+                <i class="bi bi-bookmark-star-fill text-primary" style="font-size:20px;flex-shrink:0;margin-top:2px"></i>
+                <div style="font-size:13px">
+                  <strong>No. RM otomatis</strong><br>
+                  <span style="color:var(--text-muted)">Nomor Rekam Medis akan dibuat otomatis setelah pendaftaran.</span>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3 mb-3 p-3" style="background:#FEF5E7;border-radius:var(--radius-sm)">
+                <i class="bi bi-exclamation-circle-fill" style="font-size:20px;flex-shrink:0;margin-top:2px;color:var(--warning)"></i>
+                <div style="font-size:13px">
+                  <strong>Tanda <span class="text-danger">*</span> wajib diisi</strong><br>
+                  <span style="color:var(--text-muted)">Pastikan semua field wajib terisi dengan data yang valid.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-hospital me-2 text-primary"></i>Poli Tersedia</h5>
+            </div>
+            <div class="p-3">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div style="width:10px;height:10px;border-radius:50%;background:var(--primary)"></div>
+                <div>
+                  <div style="font-size:13px;font-weight:600">Poli Umum</div>
+                  <div style="font-size:11px;color:var(--text-muted)">Penyakit umum & internal</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div style="width:10px;height:10px;border-radius:50%;background:var(--info)"></div>
+                <div>
+                  <div style="font-size:13px;font-weight:600">Poli KIA</div>
+                  <div style="font-size:11px;color:var(--text-muted)">Kesehatan Ibu dan Anak</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div style="width:10px;height:10px;border-radius:50%;background:var(--warning)"></div>
+                <div>
+                  <div style="font-size:13px;font-weight:600">Poli Anak</div>
+                  <div style="font-size:11px;color:var(--text-muted)">Kesehatan anak & imunisasi</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div style="width:10px;height:10px;border-radius:50%;background:var(--success)"></div>
+                <div>
+                  <div style="font-size:13px;font-weight:600">Poli Gigi</div>
+                  <div style="font-size:11px;color:var(--text-muted)">Perawatan gigi & mulut</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-footer">
+      <p>&copy; 2026 Puskesmas Karangan Dalam. Hak Cipta Dilindungi.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  checkAuth();
+  document.getElementById('tanggal_daftar').value = new Date().toISOString().split('T')[0];
+  const data = getPasienData();
+  const nextNum = data.length + 1;
+  document.getElementById('no-rm-preview').textContent = 'No. RM: RM-' + String(nextNum).padStart(3, '0');
+  document.getElementById('pasien-count').textContent = data.length;
+});
+
+function updateUsia() {
+  const tgl = document.getElementById('tanggal_lahir').value;
+  document.getElementById('usia-display').value = tgl ? calcAge(tgl) : '';
+}
+
+function simpanPasien() {
+  const nama = document.getElementById('nama').value.trim();
+  const tgl = document.getElementById('tanggal_lahir').value;
+  const jk = document.getElementById('jenis_kelamin').value;
+  const alamat = document.getElementById('alamat').value.trim();
+  const poli = document.getElementById('poli').value;
+  const keluhan = document.getElementById('keluhan').value.trim();
+
+  let valid = true;
+  if (!nama) { document.getElementById('nama').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('nama').classList.remove('is-invalid');
+  if (!tgl) { document.getElementById('tanggal_lahir').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('tanggal_lahir').classList.remove('is-invalid');
+  if (!jk) { document.getElementById('jenis_kelamin').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('jenis_kelamin').classList.remove('is-invalid');
+  if (!alamat) { document.getElementById('alamat').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('alamat').classList.remove('is-invalid');
+  if (!poli) { document.getElementById('poli').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('poli').classList.remove('is-invalid');
+  if (!keluhan) { document.getElementById('keluhan').classList.add('is-invalid'); valid = false; }
+  else document.getElementById('keluhan').classList.remove('is-invalid');
+
+  if (!valid) { showToast('Harap isi semua field yang wajib diisi.', 'danger'); return; }
+
+  const data = getPasienData();
+  const newId = getNextId();
+  const newRM = getNextRM();
+
+  const pasienBaru = {
+    id: newId,
+    no_rm: newRM,
+    nama,
+    tanggal_lahir: tgl,
+    jenis_kelamin: jk,
+    alamat,
+    no_hp: document.getElementById('no_hp').value || '',
+    keluhan,
+    poli,
+    status: document.getElementById('status').value,
+    tanggal_daftar: document.getElementById('tanggal_daftar').value,
+  };
+
+  data.push(pasienBaru);
+  savePasienData(data);
+  showToast(`Pasien ${nama} (${newRM}) berhasil didaftarkan!`);
+
+  setTimeout(() => { window.location.href = 'pasien.html'; }, 1500);
+}
+
+function resetForm() {
+  ['nama','nik','tanggal_lahir','no_hp','alamat','keluhan'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('is-invalid');
+  });
+  ['jenis_kelamin','gol_darah','poli','jenis_kunjungan','status'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('jenis_kunjungan').value = 'Umum';
+  document.getElementById('status').value = 'baru';
+  document.getElementById('usia-display').value = '';
+  document.getElementById('tanggal_daftar').value = new Date().toISOString().split('T')[0];
+}
+</script>
+  <script src="../../protect.js"></script>
+</body>
+</html>

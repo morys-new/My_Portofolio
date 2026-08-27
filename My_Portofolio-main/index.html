@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mourrynes Pasa — Developer · Data Analyst · IT Support</title>
+  <meta name="description" content="Portfolio of Mourrynes Pasa — Information Systems graduate working across development, data analysis, and IT support." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="dev">
+
+  <div class="bg-grain" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand">
+      <span class="nav__mark">M</span>
+      <span class="nav__name">Mourrynes&nbsp;Pasa</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#tracks" data-track="data">Data Analyst</a>
+      <a href="#tracks" data-track="dev">Developer</a>
+      <a href="#tracks" data-track="support">IT Support</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <section class="hero" id="top">
+    <canvas id="hero3d" class="hero__canvas" aria-hidden="true"></canvas>
+
+    <div class="hero__inner">
+      <p class="hero__eyebrow reveal">
+        <span class="dot"></span> Open to work — Fresh graduate, Information Systems
+      </p>
+
+      <h1 class="hero__title">
+        <span class="reveal" style="--d:.05s">Building things on</span>
+        <span class="reveal" style="--d:.12s">the web, with</span>
+        <span class="hero__rotator reveal" style="--d:.19s">
+          <span class="hero__word" data-words></span>
+        </span>
+      </h1>
+
+      <p class="hero__lead reveal" style="--d:.28s">
+        I'm interested in building things across the web, data, and systems.
+        Below is what I've actually shipped: finance dashboards, AI-powered apps,
+        workflow automations, web systems, and forecasting models.
+      </p>
+
+      <div class="hero__cta reveal" style="--d:.36s">
+        <a href="#tracks" class="btn btn--solid">View work</a>
+        <a href="mailto:mourynespasa27@gmail.com" class="btn btn--ghost">Get in touch</a>
+      </div>
+
+      <div class="hero__stats reveal" style="--d:.44s">
+        <div><b>10+</b><span>Projects shipped</span></div>
+        <div><b>3</b><span>Internships</span></div>
+        <div><b>2025</b><span>S.Kom graduate</span></div>
+      </div>
+    </div>
+
+    <a href="#about" class="hero__scroll" aria-label="Scroll down">
+      <span></span>
+    </a>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about__photo reveal-up">
+      <div class="about__frame">
+        <img src="assets/profile.jpg" alt="Mourrynes Pasa"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
+        <div class="about__fallback" style="display:none">MP</div>
+        <div class="about__ring" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="about__body">
+      <p class="eyebrow reveal-up">/ About</p>
+      <h2 class="about__title reveal-up">
+        A generalist who likes to <span class="ink">ship useful stuff.</span>
+      </h2>
+      <p class="about__text reveal-up">
+        I'm an Information Systems graduate (S.Kom, Universitas Merdeka Malang)
+        based in Depok, West Java. I enjoy working with data and building things
+        on the web — and over the last couple of years I've picked up hands-on
+        experience across web, game, and desktop development through personal
+        and freelance projects.
+      </p>
+      <p class="about__text reveal-up">
+        Three internships gave me a feel for data handling, documentation, and
+        public-facing systems, and I'm comfortable with IT support basics too.
+        I'm looking for a role where I can keep learning while actually shipping.
+      </p>
+
+      <div class="about__meta reveal-up">
+        <div><span class="k">Location</span><span class="v">Depok, West Java</span></div>
+        <div><span class="k">Degree</span><span class="v">B. Information Systems</span></div>
+        <div><span class="k">Email</span><span class="v">mourynespasa27@gmail.com</span></div>
+        <div><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/mourrynes-pasa-0b126530a/" target="_blank" rel="noopener" class="about__link">mourrynes-pasa ↗</a></span></div>
+        <div><span class="k">GitHub</span><span class="v"><a href="https://github.com/morys-new" target="_blank" rel="noopener" class="about__link">morys-new ↗</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tracks" id="tracks">
+    <div class="switch" id="switch" role="tablist" aria-label="Choose a track"></div>
+
+    <div class="stage" id="stage" aria-live="polite"></div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <p class="eyebrow reveal-up">/ Contact</p>
+      <h2 class="contact__title reveal-up">
+        Let's build something <span class="ink">worth shipping.</span>
+      </h2>
+      <p class="contact__lead reveal-up">
+        Open to roles in development, data, or IT support — and to freelance work.
+        The fastest way to reach me is email.
+      </p>
+      <div class="contact__actions reveal-up">
+        <a href="mailto:mourynespasa27@gmail.com" class="btn btn--solid">mourynespasa27@gmail.com</a>
+        <a href="tel:+6282139322717" class="btn btn--ghost">0821-3932-2717</a>
+      </div>
+      <div class="contact__links reveal-up">
+        <a href="https://www.linkedin.com/in/mourrynes-pasa-0b126530a/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/morys-new" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Mourrynes Pasa — All rights reserved</span>
+    <span>Depok, West Java · Indonesia</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/projects-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

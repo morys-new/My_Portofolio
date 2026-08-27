@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Pasien — Puskesmas Karangan Dalam</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><div class="logo-text">Puskesmas</div><div class="logo-sub">Karangan Dalam</div></div>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu Utama</div>
+      <a href="dashboard.html" class="sidebar-link"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="pasien.html" class="sidebar-link active"><i class="bi bi-people-fill"></i><span>Data Pasien</span><span class="sidebar-badge" id="pasien-count">0</span></a>
+      <a href="tambah-pasien.html" class="sidebar-link"><i class="bi bi-person-plus-fill"></i><span>Pendaftaran Baru</span></a>
+      <div class="nav-section-label">Layanan</div>
+      <a href="poli.html" class="sidebar-link"><i class="bi bi-hospital"></i><span>Poli & Antrian</span></a>
+      <a href="laporan.html" class="sidebar-link"><i class="bi bi-bar-chart-line-fill"></i><span>Laporan</span></a>
+      <div class="nav-section-label">Sistem</div>
+      <a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+        <div><p class="user-name" id="user-name">Loading...</p><p class="user-role" id="user-role">Admin</p></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">
+        <h2>Data Pasien</h2>
+        <p>Kelola seluruh data pasien puskesmas</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="tambah-pasien.html" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+          <i class="bi bi-plus-lg"></i> Tambah Pasien
+        </a>
+        <a href="#" class="btn-icon" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div class="card-section mb-3 p-3">
+        <div class="row g-2 align-items-center">
+          <div class="col-md-4">
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" id="search-input" class="form-control" placeholder="Cari nama atau No. RM..."/>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <select id="filter-status" class="form-select form-select-sm">
+              <option value="">Semua Status</option>
+              <option value="aktif">Aktif</option>
+              <option value="baru">Baru</option>
+              <option value="rawat">Rawat Jalan</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select id="filter-poli" class="form-select form-select-sm">
+              <option value="">Semua Poli</option>
+              <option value="Umum">Poli Umum</option>
+              <option value="KIA">Poli KIA</option>
+              <option value="Anak">Poli Anak</option>
+              <option value="Gigi">Poli Gigi</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select id="filter-jk" class="form-select form-select-sm">
+              <option value="">Semua JK</option>
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-2 text-end">
+            <button class="btn btn-outline-secondary btn-sm" onclick="resetFilter()">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-header-custom">
+          <h5><i class="bi bi-table me-2 text-primary"></i>Daftar Pasien</h5>
+          <span class="text-muted" style="font-size:13px" id="total-label">0 data</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>No. RM</th>
+                <th>Nama Pasien</th>
+                <th>Usia / JK</th>
+                <th>Poli</th>
+                <th>Keluhan</th>
+                <th>Status</th>
+                <th>Tgl Daftar</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="pasien-table"></tbody>
+          </table>
+        </div>
+        <div id="empty-state" class="empty-state d-none">
+          <i class="bi bi-inbox"></i>
+          <p>Tidak ada data pasien ditemukan.</p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center p-3 border-top">
+          <span style="font-size:13px;color:var(--text-muted)" id="page-info">Halaman 1 dari 1</span>
+          <nav><ul class="pagination pagination-sm mb-0" id="pagination"></ul></nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-pencil-square me-2"></i>Edit Data Pasien</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-id"/>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" id="edit-nama" class="form-control"/>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">No. HP</label>
+            <input type="text" id="edit-hp" class="form-control"/>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Tanggal Lahir</label>
+            <input type="date" id="edit-tgl" class="form-control"/>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Jenis Kelamin</label>
+            <select id="edit-jk" class="form-select">
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <select id="edit-status" class="form-select">
+              <option value="baru">Baru</option>
+              <option value="aktif">Aktif</option>
+              <option value="rawat">Rawat Jalan</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Poli</label>
+            <select id="edit-poli" class="form-select">
+              <option value="Umum">Poli Umum</option>
+              <option value="KIA">Poli KIA</option>
+              <option value="Anak">Poli Anak</option>
+              <option value="Gigi">Poli Gigi</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Keluhan</label>
+            <input type="text" id="edit-keluhan" class="form-control"/>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Alamat</label>
+            <textarea id="edit-alamat" class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" onclick="saveEdit()"><i class="bi bi-save me-1"></i>Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg,#C0392B,#E74C3C);">
+        <h5 class="modal-title text-white"><i class="bi bi-trash me-2"></i>Hapus Pasien</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size:40px"></i>
+        <p class="mt-3 mb-1">Hapus data pasien:</p>
+        <strong id="delete-nama">-</strong>?
+        <p class="text-muted small mt-2">Data yang dihapus tidak dapat dipulihkan.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete()">Ya, Hapus</button>
+      </div>
+      <input type="hidden" id="delete-id"/>
+    </div>
+
+    <div class="app-footer">
+      <p>&copy; 2026 Puskesmas Karangan Dalam. Hak Cipta Dilindungi.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+let currentPage = 1;
+const perPage = 8;
+let filteredData = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkAuth();
+  renderTable();
+  document.getElementById('search-input').addEventListener('input', () => { currentPage = 1; renderTable(); });
+  document.getElementById('filter-status').addEventListener('change', () => { currentPage = 1; renderTable(); });
+  document.getElementById('filter-poli').addEventListener('change', () => { currentPage = 1; renderTable(); });
+  document.getElementById('filter-jk').addEventListener('change', () => { currentPage = 1; renderTable(); });
+});
+
+function renderTable() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const status = document.getElementById('filter-status').value;
+  const poli = document.getElementById('filter-poli').value;
+  const jk = document.getElementById('filter-jk').value;
+
+  let data = getPasienData();
+  filteredData = data.filter(p => {
+    const matchSearch = p.nama.toLowerCase().includes(search) || p.no_rm.toLowerCase().includes(search);
+    const matchStatus = !status || p.status === status;
+    const matchPoli = !poli || p.poli === poli;
+    const matchJK = !jk || p.jenis_kelamin === jk;
+    return matchSearch && matchStatus && matchPoli && matchJK;
+  });
+
+  document.getElementById('total-label').textContent = `${filteredData.length} data`;
+  document.getElementById('pasien-count').textContent = data.length;
+
+  const total = filteredData.length;
+  const pages = Math.ceil(total / perPage);
+  if (currentPage > pages) currentPage = 1;
+  const start = (currentPage - 1) * perPage;
+  const pageData = filteredData.slice(start, start + perPage);
+
+  const tbody = document.getElementById('pasien-table');
+  const empty = document.getElementById('empty-state');
+
+  if (pageData.length === 0) {
+    tbody.innerHTML = '';
+    empty.classList.remove('d-none');
+  } else {
+    empty.classList.add('d-none');
+    tbody.innerHTML = pageData.map((p, i) => `
+      <tr>
+        <td style="color:var(--text-muted);font-size:12px">${start + i + 1}</td>
+        <td><span style="font-size:12px;font-weight:700;color:var(--primary);background:var(--accent);padding:3px 8px;border-radius:6px">${p.no_rm}</span></td>
+        <td>
+          <div style="font-weight:600;font-size:14px">${p.nama}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${p.no_hp || '-'}</div>
+        </td>
+        <td>
+          <div style="font-size:13px">${calcAge(p.tanggal_lahir)}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${p.jenis_kelamin === 'L' ? '♂ Laki-laki' : '♀ Perempuan'}</div>
+        </td>
+        <td><span style="font-size:12px;background:#E8F0FA;color:var(--info);padding:3px 8px;border-radius:6px;font-weight:600">${p.poli}</span></td>
+        <td style="max-width:160px;font-size:12px;color:var(--text-muted)">${p.keluhan}</td>
+        <td>${statusBadge(p.status)}</td>
+        <td style="font-size:12px;color:var(--text-muted)">${formatDate(p.tanggal_daftar)}</td>
+        <td>
+          <div class="d-flex gap-1">
+            <a href="detail-pasien.html?id=${p.id}" class="btn-sm-action view" title="Detail"><i class="bi bi-eye"></i></a>
+            <button class="btn-sm-action edit" onclick="openEdit(${p.id})" title="Edit"><i class="bi bi-pencil"></i></button>
+            <button class="btn-sm-action delete" onclick="openDelete(${p.id}, '${p.nama}')" title="Hapus"><i class="bi bi-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  document.getElementById('page-info').textContent = `Halaman ${currentPage} dari ${pages || 1}`;
+  let pagi = '';
+  pagi += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="goPage(${currentPage - 1});return false;">‹</a></li>`;
+  for (let i = 1; i <= pages; i++) {
+    pagi += `<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="goPage(${i});return false;">${i}</a></li>`;
+  }
+  pagi += `<li class="page-item ${currentPage === pages || pages === 0 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="goPage(${currentPage + 1});return false;">›</a></li>`;
+  document.getElementById('pagination').innerHTML = pagi;
+}
+
+function goPage(p) {
+  const pages = Math.ceil(filteredData.length / perPage);
+  if (p < 1 || p > pages) return;
+  currentPage = p;
+  renderTable();
+}
+
+function resetFilter() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('filter-status').value = '';
+  document.getElementById('filter-poli').value = '';
+  document.getElementById('filter-jk').value = '';
+  currentPage = 1;
+  renderTable();
+}
+
+function openEdit(id) {
+  const data = getPasienData();
+  const p = data.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('edit-id').value = p.id;
+  document.getElementById('edit-nama').value = p.nama;
+  document.getElementById('edit-hp').value = p.no_hp || '';
+  document.getElementById('edit-tgl').value = p.tanggal_lahir;
+  document.getElementById('edit-jk').value = p.jenis_kelamin;
+  document.getElementById('edit-status').value = p.status;
+  document.getElementById('edit-poli').value = p.poli;
+  document.getElementById('edit-keluhan').value = p.keluhan;
+  document.getElementById('edit-alamat').value = p.alamat;
+  new bootstrap.Modal(document.getElementById('editModal')).show();
+}
+
+function saveEdit() {
+  const id = parseInt(document.getElementById('edit-id').value);
+  let data = getPasienData();
+  const idx = data.findIndex(x => x.id === id);
+  if (idx === -1) return;
+  data[idx] = {
+    ...data[idx],
+    nama: document.getElementById('edit-nama').value,
+    no_hp: document.getElementById('edit-hp').value,
+    tanggal_lahir: document.getElementById('edit-tgl').value,
+    jenis_kelamin: document.getElementById('edit-jk').value,
+    status: document.getElementById('edit-status').value,
+    poli: document.getElementById('edit-poli').value,
+    keluhan: document.getElementById('edit-keluhan').value,
+    alamat: document.getElementById('edit-alamat').value,
+  };
+  savePasienData(data);
+  bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+  renderTable();
+  showToast('Data pasien berhasil diperbarui!');
+}
+
+function openDelete(id, nama) {
+  document.getElementById('delete-id').value = id;
+  document.getElementById('delete-nama').textContent = nama;
+  new bootstrap.Modal(document.getElementById('deleteModal')).show();
+}
+
+function confirmDelete() {
+  const id = parseInt(document.getElementById('delete-id').value);
+  let data = getPasienData();
+  data = data.filter(p => p.id !== id);
+  savePasienData(data);
+  bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+  renderTable();
+  showToast('Data pasien berhasil dihapus.', 'danger');
+}
+</script>
+  <script src="../../protect.js"></script>
+</body>
+</html>

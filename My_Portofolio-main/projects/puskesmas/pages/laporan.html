@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laporan — Puskesmas Karangan Dalam</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><div class="logo-text">Puskesmas</div><div class="logo-sub">Karangan Dalam</div></div>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu Utama</div>
+      <a href="dashboard.html" class="sidebar-link"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+      <a href="pasien.html" class="sidebar-link"><i class="bi bi-people-fill"></i><span>Data Pasien</span><span class="sidebar-badge" id="pasien-count">0</span></a>
+      <a href="tambah-pasien.html" class="sidebar-link"><i class="bi bi-person-plus-fill"></i><span>Pendaftaran Baru</span></a>
+      <div class="nav-section-label">Layanan</div>
+      <a href="poli.html" class="sidebar-link"><i class="bi bi-hospital"></i><span>Poli & Antrian</span></a>
+      <a href="laporan.html" class="sidebar-link active"><i class="bi bi-bar-chart-line-fill"></i><span>Laporan</span></a>
+      <div class="nav-section-label">Sistem</div>
+      <a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+        <div><p class="user-name" id="user-name">Loading...</p><p class="user-role" id="user-role">Admin</p></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">
+        <h2>Laporan & Statistik</h2>
+        <p>Ringkasan data dan statistik pasien puskesmas</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary btn-sm" onclick="window.print()">
+          <i class="bi bi-printer me-1"></i>Cetak Laporan
+        </button>
+        <a href="#" class="btn-icon" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div class="row g-3 mb-4" id="summary-stats"></div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-lg-6">
+          <div class="card-section h-100">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-pie-chart me-2 text-primary"></i>Distribusi Per Poli</h5>
+            </div>
+            <div class="p-4" id="chart-poli"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-section h-100">
+            <div class="card-header-custom">
+              <h5><i class="bi bi-gender-ambiguous me-2 text-primary"></i>Distribusi Jenis Kelamin</h5>
+            </div>
+            <div class="p-4" id="chart-jk"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-header-custom">
+          <h5><i class="bi bi-file-earmark-bar-graph me-2 text-primary"></i>Rekapitulasi Data Pasien</h5>
+          <span style="font-size:12px;color:var(--text-muted)" id="report-date"></span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr>
+                <th>Poli</th>
+                <th>Total Pasien</th>
+                <th>Laki-laki</th>
+                <th>Perempuan</th>
+                <th>Baru</th>
+                <th>Aktif</th>
+                <th>Rawat Jalan</th>
+                <th>Selesai</th>
+              </tr>
+            </thead>
+            <tbody id="laporan-table"></tbody>
+            <tfoot id="laporan-footer" style="background:var(--accent);font-weight:700"></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-footer">
+      <p>&copy; 2026 Puskesmas Karangan Dalam. Hak Cipta Dilindungi.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  checkAuth();
+  const data = getPasienData();
+  document.getElementById('pasien-count').textContent = data.length;
+  document.getElementById('report-date').textContent = 'Per tanggal: ' + new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+
+  const L = data.filter(p => p.jenis_kelamin === 'L').length;
+  const P = data.filter(p => p.jenis_kelamin === 'P').length;
+  const summaryData = [
+    { label: 'Total Pasien', value: data.length, icon: 'bi-people-fill', color: 'teal' },
+    { label: 'Laki-laki', value: L, icon: 'bi-gender-male', color: 'blue' },
+    { label: 'Perempuan', value: P, icon: 'bi-gender-female', color: 'orange' },
+    { label: 'Selesai Berobat', value: data.filter(p=>p.status==='selesai').length, icon: 'bi-check-circle-fill', color: 'green' },
+  ];
+  document.getElementById('summary-stats').innerHTML = summaryData.map(s => `
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <div class="stat-icon ${s.color}"><i class="bi ${s.icon}"></i></div>
+        <div>
+          <div class="stat-value">${s.value}</div>
+          <div class="stat-label">${s.label}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const poliList = ['Umum', 'KIA', 'Anak', 'Gigi'];
+  const poliColors = ['var(--primary)', 'var(--info)', 'var(--warning)', 'var(--success)'];
+  const poliCount = {};
+  poliList.forEach(pl => { poliCount[pl] = data.filter(p => p.poli === pl).length; });
+  const maxPoli = Math.max(...Object.values(poliCount));
+
+  document.getElementById('chart-poli').innerHTML = poliList.map((pl, i) => {
+    const cnt = poliCount[pl] || 0;
+    const pct = maxPoli > 0 ? (cnt / maxPoli) * 100 : 0;
+    return `
+      <div class="mb-3">
+        <div class="d-flex justify-content-between mb-1">
+          <span style="font-size:13px;font-weight:600">Poli ${pl}</span>
+          <span style="font-size:13px;color:var(--text-muted)">${cnt} pasien (${data.length > 0 ? Math.round(cnt/data.length*100) : 0}%)</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width:${pct}%;background:${poliColors[i]}"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const pctL = data.length > 0 ? Math.round(L / data.length * 100) : 0;
+  const pctP = 100 - pctL;
+  document.getElementById('chart-jk').innerHTML = `
+    <div class="mb-3">
+      <div class="d-flex justify-content-between mb-1">
+        <span style="font-size:13px;font-weight:600">♂ Laki-laki</span>
+        <span style="font-size:13px;color:var(--text-muted)">${L} pasien (${pctL}%)</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${pctL}%;background:var(--info)"></div></div>
+    </div>
+    <div class="mb-3">
+      <div class="d-flex justify-content-between mb-1">
+        <span style="font-size:13px;font-weight:600">♀ Perempuan</span>
+        <span style="font-size:13px;color:var(--text-muted)">${P} pasien (${pctP}%)</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${pctP}%;background:var(--warning)"></div></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:24px;justify-content:center">
+      <div style="text-align:center">
+        <div style="font-size:32px;font-weight:800;color:var(--info)">${pctL}%</div>
+        <div style="font-size:12px;color:var(--text-muted)">Laki-laki</div>
+      </div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div style="text-align:center">
+        <div style="font-size:32px;font-weight:800;color:var(--warning)">${pctP}%</div>
+        <div style="font-size:12px;color:var(--text-muted)">Perempuan</div>
+      </div>
+    </div>
+  `;
+
+  const tbody = document.getElementById('laporan-table');
+  let totals = { total:0, L:0, P:0, baru:0, aktif:0, rawat:0, selesai:0 };
+  tbody.innerHTML = poliList.map(pl => {
+    const pd = data.filter(p => p.poli === pl);
+    const r = {
+      total: pd.length,
+      L: pd.filter(p => p.jenis_kelamin === 'L').length,
+      P: pd.filter(p => p.jenis_kelamin === 'P').length,
+      baru: pd.filter(p => p.status === 'baru').length,
+      aktif: pd.filter(p => p.status === 'aktif').length,
+      rawat: pd.filter(p => p.status === 'rawat').length,
+      selesai: pd.filter(p => p.status === 'selesai').length,
+    };
+    Object.keys(totals).forEach(k => totals[k] += r[k]);
+    return `<tr>
+      <td><strong>Poli ${pl}</strong></td>
+      <td>${r.total}</td>
+      <td>${r.L}</td>
+      <td>${r.P}</td>
+      <td>${r.baru}</td>
+      <td>${r.aktif}</td>
+      <td>${r.rawat}</td>
+      <td>${r.selesai}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('laporan-footer').innerHTML = `
+    <tr style="font-weight:700;font-size:14px">
+      <td>TOTAL</td>
+      <td>${totals.total}</td>
+      <td>${totals.L}</td>
+      <td>${totals.P}</td>
+      <td>${totals.baru}</td>
+      <td>${totals.aktif}</td>
+      <td>${totals.rawat}</td>
+      <td>${totals.selesai}</td>
+    </tr>`;
+});
+</script>
+  <script src="../../protect.js"></script>
+</body>
+</html>

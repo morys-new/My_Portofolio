@@ -1,0 +1,84 @@
+<style>
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+  }
+  .sidebar-overlay.show { display: block; }
+</style>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="../pages/dashboard.html" class="sidebar-logo">
+      <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+      <div>
+        <div class="logo-text">Puskesmas</div>
+        <div class="logo-sub">Karangan Dalam</div>
+      </div>
+    </a>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Menu Utama</div>
+
+    <a href="../pages/dashboard.html" class="sidebar-link" data-page="dashboard">
+      <i class="bi bi-speedometer2"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a href="../pages/pasien.html" class="sidebar-link" data-page="pasien">
+      <i class="bi bi-people-fill"></i>
+      <span>Data Pasien</span>
+      <span class="sidebar-badge" id="pasien-count">0</span>
+    </a>
+
+    <a href="../pages/tambah-pasien.html" class="sidebar-link" data-page="tambah-pasien">
+      <i class="bi bi-person-plus-fill"></i>
+      <span>Pendaftaran Baru</span>
+    </a>
+
+    <div class="nav-section-label">Layanan</div>
+
+    <a href="../pages/poli.html" class="sidebar-link" data-page="poli">
+      <i class="bi bi-hospital"></i>
+      <span>Poli & Antrian</span>
+    </a>
+
+    <a href="../pages/laporan.html" class="sidebar-link" data-page="laporan">
+      <i class="bi bi-bar-chart-line-fill"></i>
+      <span>Laporan</span>
+    </a>
+
+    <div class="nav-section-label">Sistem</div>
+
+    <a href="#" class="sidebar-link" onclick="logout(); return false;">
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Keluar</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+      <div>
+        <p class="user-name" id="user-name">Loading...</p>
+        <p class="user-role" id="user-role">Admin</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+</script>

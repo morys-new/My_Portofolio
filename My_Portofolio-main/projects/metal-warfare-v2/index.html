@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>METAL WARFARE</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body {
+    background: #0b0810;
+    min-height: 100vh; padding: 24px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Courier New', monospace; color: #e8e0c8;
+  }
+  h1 {
+    font-size: 48px; font-weight: 900; letter-spacing: 6px;
+    color: #ffe14d;
+    text-shadow: 0 0 6px #ff5252, 3px 3px 0 #b71c1c, 6px 6px 0 #000;
+    transform: skewX(-6deg); margin-bottom: 30px;
+  }
+  a {
+    display: inline-block; padding: 16px 40px;
+    background: #ffe14d; color: #000; font-family: 'Courier New', monospace;
+    font-size: 20px; font-weight: 900; letter-spacing: 3px;
+    text-decoration: none; border-radius: 4px;
+    box-shadow: 4px 4px 0 #b71c1c;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  a:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #b71c1c; }
+  a:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 #b71c1c; }
+  p { margin-top: 20px; color: #888; font-size: 13px; }
+  @media (max-width: 480px) {
+    h1 { font-size: 34px; letter-spacing: 3px; margin-bottom: 24px; }
+    a { padding: 14px 28px; font-size: 17px; letter-spacing: 2px; }
+  }
+</style>
+</head>
+<body>
+  <h1>METAL&nbsp;WARFARE</h1>
+  <a href="play.html">▶ MAIN SEKARANG</a>
+  <p>5 Level · 5 Tipe Musuh · Boss Fight</p>
+  <script src="../protect.js"></script>
+</body>
+</html>
