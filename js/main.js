@@ -6,6 +6,29 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  /* ------------------------------------------------------------------
+     IKON — SVG sebaris, tanpa pustaka ikon
+     Satu berkas pustaka ikon berarti satu permintaan jaringan lagi untuk
+     sesuatu yang totalnya di bawah 2 KB. Warnanya diatur CSS lewat kelas
+     .ico--*, jadi di sini cukup bentuknya.
+     ------------------------------------------------------------------ */
+  const SVG = {
+    live: '<path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/>',
+    pdf: '<path d="M14 3v5h5"/><path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-4-5Z"/><path d="M9 13h6M9 17h4"/>',
+    download: '<path d="M12 4v11"/><path d="m7.5 11 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/>',
+    play: '<path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="m10 8.5 6 3.5-6 3.5v-7Z"/>',
+    image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m4 17 5-5 4.5 4.5L16 14l4 4"/>',
+    pin: '<path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+    degree: '<path d="m12 4 9 4.5-9 4.5-9-4.5L12 4Z"/><path d="M6 11v4.5c0 1.5 2.7 3 6 3s6-1.5 6-3V11"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/>',
+    linkedin: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5V17M7.5 7.2v.1M11.5 17v-3.6a2.1 2.1 0 0 1 4.2 0V17"/>',
+    github: '<path d="M9 19c-4 1.4-4-2-5.5-2.5M15 21v-3.2c0-.9-.3-1.5-.7-1.8 2.4-.3 4.9-1.2 4.9-5.4 0-1.2-.4-2.2-1.1-3 .1-.3.5-1.4-.1-2.9 0 0-.9-.3-3 1.1a10 10 0 0 0-5.2 0C7.7 4.4 6.8 4.7 6.8 4.7c-.6 1.5-.2 2.6-.1 2.9-.7.8-1.1 1.8-1.1 3 0 4.2 2.5 5.1 4.9 5.4-.3.3-.6.8-.7 1.5V21"/>'
+  };
+
+  function ico(nama, jenis) {
+    return `<span class="ico ico--${jenis || nama}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${SVG[nama]}</svg></span>`;
+  }
+
   function cardHTML(p) {
     const tags = (p.tags || []).map((t) => `<span>${t}</span>`).join("");
     const status = p.status ? `<div class="card__status">● ${p.status}</div>` : "";
@@ -14,23 +37,38 @@
       const label = p.viewLabel || p.linkLabel || "View online";
       const ready = /^https?:\/\//i.test(p.view);
       ctas.push(ready
-        ? `<a class="card__cta" href="${p.view}" target="_blank" rel="noopener">${label} ↗</a>`
+        ? `<a class="card__cta" href="${p.view}" target="_blank" rel="noopener">${ico("live")}${label}</a>`
         : `<span class="card__cta card__cta--soon" title="Link belum dipasang">${label} — coming soon</span>`);
     }
     if (p.link) {
       const label = p.linkLabel || "Open";
-      ctas.push(`<a class="card__cta" href="${p.link}" target="_blank" rel="noopener">${label} ↗</a>`);
+      // Ikonnya mengikuti maksud tautannya, bukan jenis berkasnya: "Play"
+      // berarti sesuatu yang dijalankan, sisanya gambar atau halaman.
+      const bentuk = /play/i.test(label) ? "play" : "image";
+      ctas.push(`<a class="card__cta" href="${p.link}" target="_blank" rel="noopener">${ico(bentuk)}${label}</a>`);
     }
     if (p.pdf) {
       const label = p.pdfLabel || "View preview (PDF)";
-      ctas.push(`<a class="card__cta" href="${p.pdf}" target="_blank" rel="noopener">${label} ↗</a>`);
+      ctas.push(`<a class="card__cta" href="${p.pdf}" target="_blank" rel="noopener">${ico("pdf")}${label}</a>`);
     }
     if (p.file) {
       const label = p.fileLabel || "Download";
-      ctas.push(`<a class="card__cta" href="${p.file}" download>${label} ↓</a>`);
+      ctas.push(`<a class="card__cta" href="${p.file}" download>${ico("download")}${label}</a>`);
     }
     const cta = ctas.join("");
     const note = p.note ? `<p class="card__note">${p.note}</p>` : "";
+
+    // Galeri tangkapan layar. Dipakai proyek yang tidak punya tautan hidup —
+    // aplikasi di balik halaman masuk tidak bisa dicoba pengunjung, jadi yang
+    // bisa ditunjukkan hanya layarnya.
+    const shots = (p.shots || []).length
+      ? `<div class="card__shots">${p.shots
+          .map(
+            (src, i) =>
+              `<button class="shot" type="button" data-src="${src}" data-i="${i}" aria-label="Perbesar tangkapan layar ${i + 1}"><img src="${src}" alt="" loading="lazy"></button>`,
+          )
+          .join("")}</div>`
+      : "";
     return `
       <article class="card" data-tilt>
         ${status}
@@ -41,6 +79,7 @@
         <h3 class="card__title">${p.title}</h3>
         <p class="card__desc">${p.desc}</p>
         <div class="card__tags">${tags}</div>
+        ${shots}
         ${cta ? `<div class="card__foot">${cta}${note}</div>` : ""}
       </article>`;
   }
@@ -319,4 +358,76 @@
     });
     raf = requestAnimationFrame(loop);
   })();
+
+  /* ------------------------------------------------------------------
+     LIGHTBOX — tangkapan layar dibuka besar
+     Satu lapisan untuk seluruh halaman, bukan satu per kartu: yang dibuka
+     selalu satu gambar, dan lapisan yang menumpuk hanya menahan klik.
+     ------------------------------------------------------------------ */
+  function setupLightbox() {
+    const box = document.createElement("div");
+    box.className = "lightbox";
+    box.setAttribute("aria-hidden", "true");
+    box.innerHTML =
+      '<button class="lightbox__close" type="button" aria-label="Tutup">×</button>' +
+      '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Sebelumnya">‹</button>' +
+      '<img class="lightbox__img" alt="">' +
+      '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Berikutnya">›</button>';
+    document.body.appendChild(box);
+
+    const img = box.querySelector(".lightbox__img");
+    let daftar = [];
+    let posisi = 0;
+
+    const tampil = () => {
+      img.src = daftar[posisi] || "";
+    };
+
+    const buka = (sumber, i) => {
+      daftar = sumber;
+      posisi = i;
+      tampil();
+      box.classList.add("is-open");
+      box.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const tutup = () => {
+      box.classList.remove("is-open");
+      box.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      img.src = "";
+    };
+
+    const geser = (arah) => {
+      if (!daftar.length) return;
+      posisi = (posisi + arah + daftar.length) % daftar.length;
+      tampil();
+    };
+
+    document.addEventListener("click", (e) => {
+      const tombol = e.target.closest(".shot");
+      if (!tombol) return;
+      const kartu = tombol.closest(".card");
+      const semua = [...kartu.querySelectorAll(".shot")].map((b) => b.dataset.src);
+      buka(semua, Number(tombol.dataset.i) || 0);
+    });
+
+    box.querySelector(".lightbox__close").addEventListener("click", tutup);
+    box.querySelector(".lightbox__nav--prev").addEventListener("click", () => geser(-1));
+    box.querySelector(".lightbox__nav--next").addEventListener("click", () => geser(1));
+    // Klik latar menutup; klik gambarnya sendiri tidak.
+    box.addEventListener("click", (e) => {
+      if (e.target === box) tutup();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!box.classList.contains("is-open")) return;
+      if (e.key === "Escape") tutup();
+      if (e.key === "ArrowLeft") geser(-1);
+      if (e.key === "ArrowRight") geser(1);
+    });
+  }
+
+  setupLightbox();
+
 })();

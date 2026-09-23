@@ -44,13 +44,9 @@ em { font-style: italic; color: var(--accent-soft); }
   opacity: .035; mix-blend-mode: screen;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.bg-glow {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(60vw 60vw at 75% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
-    radial-gradient(50vw 50vw at 5% 110%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
-  transition: background .9s var(--ease);
-}
+/* Dua lapisan latar dimatikan: cahaya bergradien dan bintik noise. Yang
+   tersisa warna rata, dan warnanya berganti lewat aksen tiap track. */
+.bg-glow, .bg-grain { display: none; }
 
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -218,19 +214,12 @@ em { font-style: italic; color: var(--accent-soft); }
 
 .card {
   position: relative; padding: 28px 26px 24px;
-  background: linear-gradient(165deg, var(--ink-800), var(--ink-850));
-  border: 1px solid var(--line); border-radius: 18px;
+  background: var(--ink-800);
+  border: 1px solid var(--line); border-radius: 14px;
   overflow: hidden; transition: transform .4s var(--ease), border-color .4s var(--ease);
   transform-style: preserve-3d;
 }
-.card::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(420px 200px at var(--mx,50%) var(--my,0%),
-              color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
-  opacity: 0; transition: opacity .4s var(--ease);
-}
 .card:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
-.card:hover::before { opacity: 1; }
 .card > * { position: relative; z-index: 1; }
 
 .card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
@@ -296,13 +285,11 @@ em { font-style: italic; color: var(--accent-soft); }
 .about__fallback {
   position: absolute; inset: 0; display: grid; place-items: center;
   font-family: "Fraunces", serif; font-size: 5rem; color: var(--accent);
-  background: linear-gradient(165deg, var(--ink-700), var(--ink-850));
+  background: var(--ink-700);
 }
 .about__ring {
-  position: absolute; inset: -1px; border-radius: 20px; pointer-events: none;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 55%, transparent), transparent 45%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; padding: 1px;
+  position: absolute; inset: -1px; border-radius: 16px; pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 .about__title { font-family: "Fraunces", serif; font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -.02em; line-height: 1.1; margin: 12px 0 22px; }
 .about__text { color: var(--muted); margin-bottom: 16px; max-width: 560px; }
@@ -388,3 +375,95 @@ em { font-style: italic; color: var(--accent-soft); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal, .reveal-up, .stage { opacity: 1; transform: none; }
 }
+
+/* ====================================================================
+   TANGKAPAN LAYAR PROYEK
+   Untuk proyek yang aplikasinya ada di balik halaman masuk: pengunjung
+   tidak bisa mencobanya, jadi yang bisa ditunjukkan hanya layarnya.
+   ==================================================================== */
+.card__shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+.shot {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+  cursor: zoom-in;
+  aspect-ratio: 16 / 10;
+  transition: border-color .25s var(--ease), transform .25s var(--ease);
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgb(6 7 10 / .92);
+  backdrop-filter: blur(6px);
+}
+.lightbox.is-open { display: flex; }
+.lightbox__img {
+  max-width: min(1100px, 92vw);
+  max-height: 86vh;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  object-fit: contain;
+}
+.lightbox__close,
+.lightbox__nav {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--paper);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.lightbox__close:hover,
+.lightbox__nav:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox__close { position: absolute; top: 20px; right: 20px; }
+
+@media (max-width: 640px) {
+  .lightbox__nav { width: 38px; height: 38px; font-size: 20px; }
+  .card__shots { grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); }
+}
+
+/* ====================================================================
+   IKON
+   Warnanya dipatok per jenis, bukan mengikuti aksen track: yang dicari
+   mata adalah BEDANYA — tautan hidup, PDF, unduhan, dan gambar harus
+   bisa dibedakan sebelum tulisannya dibaca.
+   ==================================================================== */
+.ico { display: inline-flex; flex: none; }
+.ico svg { width: 15px; height: 15px; stroke-width: 1.7; }
+.ico--live     { color: #4fd1c5; }
+.ico--pdf      { color: #e5715f; }
+.ico--download { color: #63c69a; }
+.ico--play     { color: #e0a458; }
+.ico--image    { color: #a78bfa; }
+.ico--pin      { color: #e5715f; }
+.ico--degree   { color: #4fd1c5; }
+.ico--mail     { color: #e0a458; }
+.ico--linkedin { color: #63a4ff; }
+.ico--github   { color: #c9b8ff; }
+
+/* Label kembali netral supaya ikonnya yang berbicara. */
+.card__cta { color: var(--paper); gap: 8px; }
+.card__cta:hover { color: var(--accent); }
+
+.about__meta .k { display: inline-flex; align-items: center; gap: 7px; }
+.contact__links a { display: inline-flex; align-items: center; gap: 8px; }

@@ -27,15 +27,20 @@ const PORTFOLIO = {
   dev: [
     {
       year: "2026",
-      kind: "Freelance · Web app",
-      title: "Custom Internal Accounting System",
-      desc: "An internal accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate). The client switched so the system would fit the company's exact workflow and stay easy to customise. It handles a multi-entity structure (group → PT → brand → store) with full double-entry bookkeeping — general journal, ledger, cash & bank reconciliation, fixed assets, financial reports and tax — plus role-based access (Owner/Admin/Staff/Viewer) enforced at the database level, not just hidden buttons.",
-      tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Tailwind"],
-      view: "https://akuntansi-umum.vercel.app/dashboard",
-      linkLabel: "Open the live app",
-      pdf: "projects/data/Accounting-System-Preview-Mourrynes-Pasa.pdf",
-      pdfLabel: "View preview (PDF)",
-      note: "Live web app, plus a PDF walkthrough of the main screens. On-screen data is sample data."
+      kind: "Freelance · Product · Web app",
+      title: "morika.id — Multi-Company Accounting System",
+      desc: "An accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate), and now running as a subscription product with its own sign-up, billing reminders and automatic customer backups. It covers the finance side of an ERP rather than bookkeeping alone: double-entry journals and ledger, receivables and payables, inventory movement, fixed assets with depreciation, bank reconciliation, tax (PPN/PPh), period closing, and consolidated reports across a group → company → branch structure. Access is enforced inside the database with row-level security — not hidden buttons — so one branch can never read or edit another's records.",
+      tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Tailwind", "Netlify"],
+      pdf: "projects/data/morika-id-preview.pdf",
+      pdfLabel: "View the walkthrough (PDF)",
+      shots: [
+        "assets/morika/01-daftar-perusahaan.png",
+        "assets/morika/02-dasbor-pergerakan-harian.png",
+        "assets/morika/03-jurnal-umum.png",
+        "assets/morika/04-tren-dan-kontribusi.png",
+        "assets/morika/05-profil-dan-backup.png",
+      ],
+      note: "Screens from the live product. Figures shown are sample data.",
     },
     {
       year: "2026",
