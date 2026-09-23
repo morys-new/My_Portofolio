@@ -1,5 +1,5 @@
 const PORTFOLIO = {
-  rotatorWords: ["TypeScript", "Python", "Excel", "automation", "AI", "purpose"],
+  rotatorWords: ["TypeScript", "Python", "SQL", "Excel", "automation", "purpose"],
 
   trackOrder: ["data", "dev", "support"],
 
@@ -8,13 +8,13 @@ const PORTFOLIO = {
       label: "Data Analyst",
       title: ["Data", "Analyst"],
       eyebrow: "/ Primary track",
-      sub: "Cleaning messy data and turning it into dashboards people can actually use — from Excel and Google Sheets to full web dashboards — plus forecasting and stats in Python and SPSS."
+      sub: "Cleaning messy data and turning it into dashboards people can actually use — from Excel and Google Sheets to full web dashboards — plus statistics in Python and SPSS."
     },
     dev: {
       label: "Developer",
       title: ["Developer", "Programming"],
       eyebrow: "/ Track",
-      sub: "Full-stack web, AI-powered apps, workflow automation, games, desktop, ERP, and mobile — small working projects built from scratch, usually without leaning on heavy libraries."
+      sub: "Web development end to end — interface, database, and deployment — plus AI-powered apps and workflow automation. Small working systems built from scratch, usually without leaning on heavy libraries."
     },
     support: {
       label: "IT Support",
@@ -185,20 +185,24 @@ const PORTFOLIO = {
   ],
 
   chips: {
+    // Disamakan dengan CV: satu jalur saja, web, dan bahasanya sedikit.
+    // Daftar panjang berisi bahasa yang jarang dipakai membuat yang benar-
+    // benar dikuasai ikut diragukan.
     dev: [
-      ["React + TypeScript", "INT"], ["Node.js / Express", "INT"], ["PostgreSQL", "INT"],
-      ["Phaser.js", "BEG"], ["Unity + C#", "BEG"], [".NET 8 + C#", "BEG"],
-      ["Odoo + Python", "BEG"], ["Flutter + Dart", "BEG"], ["Git & GitHub", "INT"],
-      ["n8n", "BEG"], ["Flowise + RAG", "BEG"], ["Figma", ""], ["Postman", ""], ["Vercel / Railway", ""]
+      ["HTML & CSS", "BEG"], ["JavaScript / TypeScript", "BEG"], ["React (Next.js)", "BEG"],
+      ["Tailwind CSS", "BEG"], ["Node.js / REST API", "BEG"], ["PostgreSQL (Supabase)", "BEG"],
+      ["Git & GitHub", "BEG"], ["Netlify / Vercel", ""], ["Claude Code", ""],
+      ["n8n", "BEG"], ["Figma", ""], ["Postman", ""]
     ],
     data: [
-      ["Microsoft Excel", "INT"], ["Python + Pandas", "INT"], ["SQL (MySQL/PG/SQL Server)", "BEG"],
-      ["Power BI", "BEG"], ["Statistics", "BEG"], ["SPSS", "BEG"], ["Apps Script", "BEG"], ["Google Sheets", ""], ["Git & GitHub", "INT"]
+      ["Microsoft Excel", "INT"], ["IBM SPSS", "INT"], ["Python + Pandas", "BEG"],
+      ["SQL (MySQL/PG/SQL Server)", "BEG"], ["Google Sheets", "BEG"], ["Looker Studio", "BEG"],
+      ["Statistics", "BEG"], ["Apps Script", "BEG"], ["Git & GitHub", "BEG"]
     ],
     support: [
-      ["Windows 10 / 11", "BEG"], ["Linux Ubuntu", "BEG"], ["OS & driver install", "BEG"],
-      ["Backup & restore", "BEG"], ["Networking basics", "BEG"], ["AnyDesk / TeamViewer", "BEG"],
-      ["PowerShell basics", "BEG"], ["MS Office", "ADV"], ["Documentation", ""]
+      ["Windows 10 / 11", "BEG"], ["Linux Ubuntu (basic)", "BEG"], ["OS & driver install", "BEG"],
+      ["Backup & restore", "BEG"], ["Troubleshooting", "BEG"], ["AnyDesk / TeamViewer", "BEG"],
+      ["MS Office", "ADV"], ["Documentation", ""]
     ]
   }
 };
