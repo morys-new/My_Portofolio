@@ -350,6 +350,13 @@ em { font-style: italic; color: var(--accent-soft); }
   .about__frame { max-width: 260px; }
   .about__meta { grid-template-columns: 1fr 1fr; }
   .section__head { flex-direction: column; gap: 14px; }
+  /* Judul track dirangkai "Developer·Programming" tanpa spasi, jadi peramban
+     membacanya sebagai SATU kata sepanjang 367px -- lebih lebar daripada
+     layar 375px, dan halaman jadi bisa digeser ke samping. <wbr> di main.js
+     memberi titik putus; dua baris ini jaring pengamannya kalau suatu saat
+     judulnya diganti dengan kata yang lebih panjang lagi. */
+  .section__title { overflow-wrap: break-word; }
+  .section__head > * { min-width: 0; }
   .exp { grid-template-columns: 1fr; gap: 10px; }
   .hero__stats { gap: 28px; }
 }

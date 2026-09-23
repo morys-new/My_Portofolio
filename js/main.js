@@ -155,7 +155,7 @@
         <div class="section__index">${(order.indexOf(key) + 1).toString().padStart(2, "0")}</div>
         <div>
           <p class="eyebrow">${m.eyebrow}</p>
-          <h2 class="section__title">${m.title[0]}<span class="amp">·</span>${m.title[1]}</h2>
+          <h2 class="section__title">${m.title[0]}<span class="amp">·</span><wbr>${m.title[1]}</h2>
           <p class="section__sub">${m.sub}</p>
         </div>
       </div>
