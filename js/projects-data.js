@@ -131,9 +131,10 @@ const PORTFOLIO = {
       title: "Tax Withholding Calculator",
       desc: "A reusable withholding-tax template: an instructions tab, a calculator with live tariff lookups, a rate table, and an auto-recap sheet — packaged so a finance team can drop in figures and read results.",
       tags: ["Excel", "Lookup tables", "Templates"],
-      view: "https://docs.google.com/spreadsheets/d/1LjbubrbILGKpRzyXP3GA6cWfzexPd9ZG/preview",
-      linkLabel: "Try it online",
-      note: "Google Sheets — anonymized sample, view only."
+      // Tombol "Try it online" dibuang: berkas Google Sheets-nya menjawab
+      // 410 Gone -- dihapus permanen, bukan sekadar dibatasi aksesnya.
+      // Kartu tanpa tombol lebih baik daripada tombol yang mendaratkan
+      // pengunjung di halaman mati.
     }
   ],
 
