@@ -1,0 +1,12 @@
+# Berkas biner tidak boleh disentuh penerjemah akhir baris. Tanpa baris-baris
+# ini, git di Windows bisa mengubah LF menjadi CRLF di dalam PDF atau PNG saat
+# kloning -- berkasnya tetap ada, ukurannya berubah sedikit, dan yang membuka
+# hanya melihat "file rusak" tanpa petunjuk sebabnya.
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
