@@ -140,6 +140,16 @@ const PORTFOLIO = {
 
   support: [
     {
+      when: "Jan 2026 — Present",
+      role: "Freelance — Web Developer & Data Analyst",
+      org: "Self-employed — Remote",
+      points: [
+        "Build web applications for clients end to end — interface, database, and deployment — with Next.js, TypeScript, and PostgreSQL (Supabase), using Claude Code as a daily development tool.",
+        "Process and analyse client data with Python and IBM SPSS, then turn it into reports and dashboards they can read without me explaining them.",
+        "Run the whole cycle myself: scoping with the client, building, testing, deploying, and fixing what breaks afterwards."
+      ]
+    },
+    {
       when: "Oct 2024 — Nov 2024",
       role: "HR Division Intern",
       org: "Polresta Malang Kota",
@@ -147,7 +157,7 @@ const PORTFOLIO = {
         "Organized employee records (digital and physical) so things stayed easy to find.",
         "Recapped attendance, personnel, and admin data in Excel for internal reporting.",
         "Cleaned raw data before it went to supervisors for review.",
-        "Kept the institution's profile website updated and checked for outdated info."
+        "Built a draft profile website for the institution in WordPress — page layout, menu structure, and content arrangement."
       ]
     },
     {
@@ -158,6 +168,7 @@ const PORTFOLIO = {
         "Joined early discussions on application planning and system development.",
         "Documented system requirements and workflows to keep development organized.",
         "Supported basic user-needs analysis and turned findings into simple documentation.",
+        "Mapped system and service workflows into flowcharts with draw.io so the process was agreed on before anything was built.",
         "Sat in on coordination meetings for implementation and digital service upgrades."
       ]
     },
