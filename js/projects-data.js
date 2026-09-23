@@ -29,7 +29,7 @@ const PORTFOLIO = {
       year: "2026",
       kind: "Freelance · Product · Web app",
       title: "morika.id — Multi-Company Accounting System",
-      desc: "An accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate), and now running as a subscription product with its own sign-up, billing reminders and automatic customer backups. It covers the finance side of an ERP rather than bookkeeping alone: double-entry journals and ledger, receivables and payables, inventory movement, fixed assets with depreciation, bank reconciliation, tax (PPN/PPh), period closing, and consolidated reports across a group → company → branch structure. Access is enforced inside the database with row-level security — not hidden buttons — so one branch can never read or edit another's records.",
+      desc: "An accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate). It is deployed and runs as a subscription product: customers sign up themselves, billing reminders go out on schedule, and each company receives its own backup by email. It covers the finance side of an ERP rather than bookkeeping alone: double-entry journals and ledger, receivables and payables, inventory movement, fixed assets with depreciation, bank reconciliation, tax (PPN/PPh), period closing, and consolidated reports across a group → company → branch structure. Access is enforced inside the database with row-level security — not hidden buttons — so one branch can never read or edit another's records.",
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Tailwind", "Netlify"],
       pdf: "projects/data/morika-id-preview.pdf",
       pdfLabel: "View the walkthrough (PDF)",
