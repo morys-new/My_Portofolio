@@ -1,7 +1,9 @@
 const PORTFOLIO = {
   rotatorWords: ["TypeScript", "Python", "SQL", "Excel", "automation", "purpose"],
 
-  trackOrder: ["data", "dev", "support"],
+  // Urutan disamakan dengan CV: Web Developer & Data Analyst sebagai jalur
+  // utama, IT Support sebagai pendukung.
+  trackOrder: ["dev", "data", "support"],
 
   meta: {
     data: {
@@ -11,15 +13,15 @@ const PORTFOLIO = {
       sub: "Cleaning messy data and turning it into dashboards people can actually use — from Excel and Google Sheets to full web dashboards — plus statistics in Python and SPSS."
     },
     dev: {
-      label: "Developer",
-      title: ["Developer", "Programming"],
-      eyebrow: "/ Track",
-      sub: "Web development end to end — interface, database, and deployment — plus AI-powered apps and workflow automation. Small working systems built from scratch, usually without leaning on heavy libraries."
+      label: "Web Developer",
+      title: ["Web", "Developer"],
+      eyebrow: "/ Primary track",
+      sub: "Web development end to end — interface, database, and deployment — plus AI-powered apps and workflow automation. Built with AI-assisted development (Claude Code): I define what the system must do, direct the build, and check the result with tests."
     },
     support: {
       label: "IT Support",
       title: ["IT", "Support"],
-      eyebrow: "/ Track",
+      eyebrow: "/ Supporting track",
       sub: "The practical side: records, documentation, public-facing systems, and everyday hardware/software fixes — built up across three internships."
     }
   },
@@ -81,17 +83,17 @@ const PORTFOLIO = {
       linkLabel: "Play the game"
     },
     {
-      year: "2025",
+      year: "2026",
       kind: "Freelance · personal",
       title: "Puskesmas Patient System",
-      desc: "A frontend patient-records system: dashboard, patient list with full CRUD, registration form, polyclinic queue, and reports. Later rebranded and repackaged as a standalone static deployment (\"Karangan Dalam\") with updated content.",
+      desc: "A frontend patient-records system: dashboard, patient list with full CRUD, registration form, polyclinic queue, and reports.",
       tags: ["HTML", "CSS", "Bootstrap 5", "JavaScript"],
       link: "projects/puskesmas/index.html",
       linkLabel: "Open the system",
       note: "Demo login — user: admin · pass: admin123"
     },
     {
-      year: "2025 — Present",
+      year: "2026 — Present",
       kind: "Freelance",
       title: "Website Development & Data Support",
       desc: "Responsive HTML/CSS websites built from client briefs, plus data clean-up in Excel for reporting. Managed deadlines independently with clear client communication.",
@@ -119,14 +121,14 @@ const PORTFOLIO = {
       tags: ["Python", "ARIMA", "Time Series", "Pandas"]
     },
     {
-      year: "2025",
+      year: "2026",
       kind: "Freelance · Puskesmas",
       title: "Medicine Distribution Model",
       desc: "An Excel-based distribution planning model with structured sheets and formulas to estimate medicine allocation across a clinic's needs.",
       tags: ["Excel", "Modeling", "Formulas"]
     },
     {
-      year: "2025",
+      year: "2026",
       kind: "Freelance · Excel",
       title: "Tax Withholding Calculator",
       desc: "A reusable withholding-tax template: an instructions tab, a calculator with live tariff lookups, a rate table, and an auto-recap sheet — packaged so a finance team can drop in figures and read results.",
@@ -144,9 +146,10 @@ const PORTFOLIO = {
       role: "Freelance — Web Developer & Data Analyst",
       org: "Self-employed — Remote",
       points: [
-        "Build web applications for clients end to end — interface, database, and deployment — with Next.js, TypeScript, and PostgreSQL (Supabase), using Claude Code as a daily development tool.",
-        "Process and analyse client data with Python and IBM SPSS, then turn it into reports and dashboards they can read without me explaining them.",
-        "Run the whole cycle myself: scoping with the client, building, testing, deploying, and fixing what breaks afterwards."
+        "Build business web applications for clients end to end — requirements, database design, interface, deployment, and post-launch fixes — with Next.js, TypeScript, and PostgreSQL (Supabase), using Claude Code as a daily development tool.",
+        "Turn clients' raw spreadsheets into dashboards and reports with Python, Google Apps Script, and IBM SPSS, so non-technical teams can read the numbers without a walkthrough.",
+        "Deliver smaller jobs alongside: responsive websites from client briefs, reusable Excel reporting templates, and data clean-up for documentation.",
+        "Run the whole cycle alone — scoping with the client, building, testing, deploying, and supporting after launch."
       ]
     },
     {
@@ -185,24 +188,21 @@ const PORTFOLIO = {
   ],
 
   chips: {
-    // Disamakan dengan CV: satu jalur saja, web, dan bahasanya sedikit.
-    // Daftar panjang berisi bahasa yang jarang dipakai membuat yang benar-
-    // benar dikuasai ikut diragukan.
+    // Disamakan dengan CV: tanpa label level (BEG/INT/ADV). Cukup tools
+    // yang benar-benar dipakai di proyek.
     dev: [
-      ["HTML & CSS", "BEG"], ["JavaScript / TypeScript", "BEG"], ["React (Next.js)", "BEG"],
-      ["Tailwind CSS", "BEG"], ["Node.js / REST API", "BEG"], ["PostgreSQL (Supabase)", "BEG"],
-      ["Git & GitHub", "BEG"], ["Netlify / Vercel", ""], ["Claude Code", ""],
-      ["n8n", "BEG"], ["Figma", ""], ["Postman", ""]
+      ["Next.js (React)"], ["TypeScript / JavaScript"], ["HTML & CSS"], ["Tailwind CSS"],
+      ["REST API"], ["Auth & access control"], ["PostgreSQL (Supabase)"], ["Row-level security"],
+      ["Git & GitHub"], ["Netlify / Vercel"], ["Claude Code"], ["n8n"], ["Flowise (RAG)"], ["Postman"], ["Figma"]
     ],
     data: [
-      ["Microsoft Excel", "INT"], ["IBM SPSS", "INT"], ["Python + Pandas", "BEG"],
-      ["SQL (MySQL/PG/SQL Server)", "BEG"], ["Google Sheets", "BEG"], ["Looker Studio", "BEG"],
-      ["Statistics", "BEG"], ["Apps Script", "BEG"], ["Git & GitHub", "BEG"]
+      ["Microsoft Excel"], ["IBM SPSS"], ["Python + Pandas"], ["SQL (MySQL / PostgreSQL / SQL Server)"],
+      ["Google Sheets"], ["Looker Studio"], ["Apps Script"], ["Time-series forecasting"],
+      ["Accounting & tax (PPN/PPh)"], ["Git & GitHub"]
     ],
     support: [
-      ["Windows 10 / 11", "BEG"], ["Linux Ubuntu (basic)", "BEG"], ["OS & driver install", "BEG"],
-      ["Backup & restore", "BEG"], ["Troubleshooting", "BEG"], ["AnyDesk / TeamViewer", "BEG"],
-      ["MS Office", "ADV"], ["Documentation", ""]
+      ["Windows 10 / 11"], ["Ubuntu basics"], ["OS & driver install"], ["Backup & restore"],
+      ["Troubleshooting"], ["AnyDesk / TeamViewer / Quick Assist"], ["MS Office"], ["Documentation"], ["draw.io"]
     ]
   }
 };
