@@ -60,7 +60,7 @@
 
     var b = document.createElement("div");
     b.className = "__owner_badge";
-    b.textContent = "© " + YEAR + " " + OWNER + " — view only";
+    b.textContent = "© " + YEAR + " " + OWNER + " · view only";
     document.body.appendChild(b);
   }
 
@@ -71,7 +71,7 @@
       flashEl.className = "__owner_flash";
       document.body.appendChild(flashEl);
     }
-    flashEl.textContent = "🔒 Protected work — © " + OWNER;
+    flashEl.textContent = "🔒 Protected work · © " + OWNER;
     flashEl.style.opacity = "1";
     clearTimeout(flash._t);
     flash._t = setTimeout(function () { flashEl.style.opacity = "0"; }, 1400);
@@ -82,7 +82,7 @@
 
   try {
     console.log("%c© " + YEAR + " " + OWNER, "font-size:14px;font-weight:700;color:#e0a458");
-    console.log("%cThis work is the property of " + OWNER + ". View only — please do not copy or redistribute.",
+    console.log("%cThis work is the property of " + OWNER + ". View only. Please do not copy or redistribute.",
       "color:#9aa0ad");
   } catch (e) {}
 })();

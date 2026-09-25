@@ -7,7 +7,7 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 
   /* ------------------------------------------------------------------
-     IKON — SVG sebaris, tanpa pustaka ikon
+     IKON - SVG sebaris, tanpa pustaka ikon
      Satu berkas pustaka ikon berarti satu permintaan jaringan lagi untuk
      sesuatu yang totalnya di bawah 2 KB. Warnanya diatur CSS lewat kelas
      .ico--*, jadi di sini cukup bentuknya.
@@ -38,7 +38,7 @@
       const ready = /^https?:\/\//i.test(p.view);
       ctas.push(ready
         ? `<a class="card__cta" href="${p.view}" target="_blank" rel="noopener">${ico("live")}${label}</a>`
-        : `<span class="card__cta card__cta--soon" title="Link belum dipasang">${label} — coming soon</span>`);
+        : `<span class="card__cta card__cta--soon" title="Link belum dipasang">${label} (coming soon)</span>`);
     }
     if (p.link) {
       const label = p.linkLabel || "Open";
@@ -58,7 +58,7 @@
     const cta = ctas.join("");
     const note = p.note ? `<p class="card__note">${p.note}</p>` : "";
 
-    // Galeri tangkapan layar. Dipakai proyek yang tidak punya tautan hidup —
+    // Galeri tangkapan layar. Dipakai proyek yang tidak punya tautan hidup -
     // aplikasi di balik halaman masuk tidak bisa dicoba pengunjung, jadi yang
     // bisa ditunjukkan hanya layarnya.
     const shots = (p.shots || []).length
@@ -360,7 +360,7 @@
   })();
 
   /* ------------------------------------------------------------------
-     LIGHTBOX — tangkapan layar dibuka besar
+     LIGHTBOX - tangkapan layar dibuka besar
      Satu lapisan untuk seluruh halaman, bukan satu per kartu: yang dibuka
      selalu satu gambar, dan lapisan yang menumpuk hanya menahan klik.
      ------------------------------------------------------------------ */

@@ -10,19 +10,19 @@ const PORTFOLIO = {
       label: "Data Analyst",
       title: ["Data", "Analyst"],
       eyebrow: "/ Primary track",
-      sub: "Cleaning messy data and turning it into dashboards people can actually use — from Excel and Google Sheets to full web dashboards — plus statistics in Python and SPSS."
+      sub: "Cleaning messy data and turning it into dashboards people can actually use, from Excel and Google Sheets to full web dashboards, plus statistics in Python and SPSS."
     },
     dev: {
       label: "Web Developer",
       title: ["Web", "Developer"],
       eyebrow: "/ Primary track",
-      sub: "Web development end to end — interface, database, and deployment — plus AI-powered apps and workflow automation. Built with AI-assisted development (Claude Code): I define what the system must do, direct the build, and check the result with tests."
+      sub: "Web development end to end (interface, database, and deployment), plus AI-powered apps and workflow automation. Built with AI-assisted development (Claude Code): I define what the system must do, direct the build, and check the result with tests."
     },
     support: {
       label: "IT Support",
       title: ["IT", "Support"],
       eyebrow: "/ Supporting track",
-      sub: "The practical side: records, documentation, public-facing systems, and everyday hardware/software fixes — built up across three internships."
+      sub: "The practical side: records, documentation, public-facing systems, and everyday hardware/software fixes, built up across three internships."
     }
   },
 
@@ -30,8 +30,8 @@ const PORTFOLIO = {
     {
       year: "2026",
       kind: "Freelance · Product · Web app",
-      title: "morika.id — Multi-Company Accounting System",
-      desc: "An accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate). It is deployed and runs as a subscription product: customers sign up themselves, billing reminders go out on schedule, and each company receives its own backup by email. It covers the finance side of an ERP rather than bookkeeping alone: double-entry journals and ledger, receivables and payables, inventory movement, fixed assets with depreciation, bank reconciliation, tax (PPN/PPh), period closing, and consolidated reports across a group → company → branch structure. Access is enforced inside the database with row-level security — not hidden buttons — so one branch can never read or edit another's records.",
+      title: "morika.id: Multi-Company Accounting System",
+      desc: "An accounting system built from scratch to replace off-the-shelf vendor software (Jurnal.id, Accurate). It is deployed and runs as a subscription product: customers sign up themselves, billing reminders go out on schedule, and each company receives its own backup by email. It covers the finance side of an ERP rather than bookkeeping alone: double-entry journals and ledger, receivables and payables, inventory movement, fixed assets with depreciation, bank reconciliation, tax (PPN/PPh), period closing, and consolidated reports across a group → company → branch structure. Access is enforced inside the database with row-level security, not hidden buttons, so one branch can never read or edit another's records.",
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Tailwind", "Netlify"],
       pdf: "projects/data/morika-id-preview.pdf",
       pdfLabel: "View the walkthrough (PDF)",
@@ -56,8 +56,8 @@ const PORTFOLIO = {
     {
       year: "2026",
       kind: "Personal · AI (RAG)",
-      title: "What Would Lee Kuan Yew Do — Chatbot",
-      desc: "A chatbot that answers in Lee Kuan Yew's style of thinking, grounded in his own writings instead of making things up. The texts are split into chunks, turned into embeddings in a vector store, and the AI (Google Gemini) answers from the most relevant pieces — a RAG setup (Retrieval-Augmented Generation). It also keeps conversation memory so the chat stays on thread.",
+      title: "What Would Lee Kuan Yew Do: Chatbot",
+      desc: "A chatbot that answers in Lee Kuan Yew's style of thinking, grounded in his own writings instead of making things up. The texts are split into chunks, turned into embeddings in a vector store, and the AI (Google Gemini) answers from the most relevant pieces, a RAG setup (Retrieval-Augmented Generation). It also keeps conversation memory so the chat stays on thread.",
       tags: ["Flowise", "Google Gemini", "RAG", "Vector DB"],
       view: "https://cloud.flowiseai.com/chatbot/52db0add-d8d7-416b-bfed-d980d19ce9f6",
       linkLabel: "Open the chatbot"
@@ -67,17 +67,17 @@ const PORTFOLIO = {
       kind: "Personal · in progress",
       title: "Rantau Stories",
       status: "WIP",
-      desc: "A full-stack life-simulation web game. I planned the whole roadmap — frontend in Next.js + Phaser.js, backend in Spring Boot + PostgreSQL — and built a smaller standalone prototype (\"Kisah Kampung\") on the side in pure HTML, CSS, and JS, no libraries.",
+      desc: "A full-stack life-simulation web game. I planned the whole roadmap (frontend in Next.js + Phaser.js, backend in Spring Boot + PostgreSQL) and built a smaller standalone prototype (\"Kisah Kampung\") on the side in pure HTML, CSS, and JS, no libraries.",
       tags: ["Next.js", "TypeScript", "Phaser.js", "Spring Boot", "PostgreSQL"],
       link: "projects/kisah-kampung/index.html",
       linkLabel: "Play the prototype",
-      note: "Opens \"Kisah Kampung\" — the playable life-sim prototype."
+      note: "Opens \"Kisah Kampung\", the playable life-sim prototype."
     },
     {
       year: "2026",
       kind: "Personal project",
       title: "Metal Warfare",
-      desc: "A run-and-gun sidescroller built from scratch on HTML5 Canvas — own engine, no game libraries. Started in plain JavaScript, then rebuilt it in TypeScript (v2) for cleaner code, with five levels and a custom game loop.",
+      desc: "A run-and-gun sidescroller built from scratch on HTML5 Canvas with its own engine and no game libraries. Started in plain JavaScript, then rebuilt it in TypeScript (v2) for cleaner code, with five levels and a custom game loop.",
       tags: ["HTML5 Canvas", "TypeScript", "Game Loop"],
       link: "projects/metal-warfare-v2/play.html",
       linkLabel: "Play the game"
@@ -90,10 +90,10 @@ const PORTFOLIO = {
       tags: ["HTML", "CSS", "Bootstrap 5", "JavaScript"],
       link: "projects/puskesmas/index.html",
       linkLabel: "Open the system",
-      note: "Demo login — user: admin · pass: admin123"
+      note: "Demo login · user: admin · pass: admin123"
     },
     {
-      year: "2026 — Present",
+      year: "2026 - Present",
       kind: "Freelance",
       title: "Website Development & Data Support",
       desc: "Responsive HTML/CSS websites built from client briefs, plus data clean-up in Excel for reporting. Managed deadlines independently with clear client communication.",
@@ -105,8 +105,8 @@ const PORTFOLIO = {
     {
       year: "2026",
       kind: "Freelance · Web app",
-      title: "Finance & Tax Dashboard — Multi-Store Retail",
-      desc: "A web dashboard for the finance & tax team of a 33-store retail company, so they can see every store's numbers in one place instead of opening files one by one. The raw data gets cleaned and split per store, then laid out as easy-to-read tables and charts — daily trends, store-to-store comparisons, and variance (selisih) tracking — which speeds up daily reporting and tax prep.",
+      title: "Finance & Tax Dashboard for Multi-Store Retail",
+      desc: "A web dashboard for the finance & tax team of a 33-store retail company, so they can see every store's numbers in one place instead of opening files one by one. The raw data gets cleaned and split per store, then laid out as easy-to-read tables and charts (daily trends, store-to-store comparisons, and variance (selisih) tracking), which speeds up daily reporting and tax prep.",
       tags: ["Google Apps Script", "JavaScript", "Python", "Dashboards"],
       view: "https://script.google.com/macros/s/AKfycbwqmJOYGQZG3czllm5AYzdYcu_Q6RBTGzMRYudQBd7xD9yCQfbUHfuMVjQIhTheWluF/exec",
       linkLabel: "Open the dashboard",
@@ -117,7 +117,7 @@ const PORTFOLIO = {
       year: "2025",
       kind: "Academic · Python",
       title: "Coal Production Forecasting",
-      desc: "Forecasted coal production from 10+ years of monthly data using ARIMA and Double Exponential Smoothing. Compared models with MAPE, MAE, and RMSE — ARIMA handled the fluctuations better with lower error.",
+      desc: "Forecasted coal production from 10+ years of monthly data using ARIMA and Double Exponential Smoothing. Compared models with MAPE, MAE, and RMSE, and ARIMA handled the fluctuations better with lower error.",
       tags: ["Python", "ARIMA", "Time Series", "Pandas"]
     },
     {
@@ -131,7 +131,7 @@ const PORTFOLIO = {
       year: "2026",
       kind: "Freelance · Excel",
       title: "Tax Withholding Calculator",
-      desc: "A reusable withholding-tax template: an instructions tab, a calculator with live tariff lookups, a rate table, and an auto-recap sheet — packaged so a finance team can drop in figures and read results.",
+      desc: "A reusable withholding-tax template: an instructions tab, a calculator with live tariff lookups, a rate table, and an auto-recap sheet, packaged so a finance team can drop in figures and read results.",
       tags: ["Excel", "Lookup tables", "Templates"],
       // Tombol "Try it online" dibuang: berkas Google Sheets-nya menjawab
       // 410 Gone -- dihapus permanen, bukan sekadar dibatasi aksesnya.
@@ -142,29 +142,29 @@ const PORTFOLIO = {
 
   support: [
     {
-      when: "Jan 2026 — Present",
-      role: "Freelance — Web Developer & Data Analyst",
-      org: "Self-employed — Remote",
+      when: "Jan 2026 - Present",
+      role: "Freelance Web Developer & Data Analyst",
+      org: "Self-employed, Remote",
       points: [
-        "Build business web applications for clients end to end — requirements, database design, interface, deployment, and post-launch fixes — with Next.js, TypeScript, and PostgreSQL (Supabase), using Claude Code as a daily development tool.",
+        "Build business web applications for clients end to end, from requirements, database design, and interface to deployment and post-launch fixes, with Next.js, TypeScript, and PostgreSQL (Supabase), using Claude Code as a daily development tool.",
         "Turn clients' raw spreadsheets into dashboards and reports with Python, Google Apps Script, and IBM SPSS, so non-technical teams can read the numbers without a walkthrough.",
         "Deliver smaller jobs alongside: responsive websites from client briefs, reusable Excel reporting templates, and data clean-up for documentation.",
-        "Run the whole cycle alone — scoping with the client, building, testing, deploying, and supporting after launch."
+        "Run the whole cycle alone: scoping with the client, building, testing, deploying, and supporting after launch."
       ]
     },
     {
-      when: "Oct 2024 — Nov 2024",
+      when: "Oct 2024 - Nov 2024",
       role: "HR Division Intern",
       org: "Polresta Malang Kota",
       points: [
         "Organized employee records (digital and physical) so things stayed easy to find.",
         "Recapped attendance, personnel, and admin data in Excel for internal reporting.",
         "Cleaned raw data before it went to supervisors for review.",
-        "Built a draft profile website for the institution in WordPress — page layout, menu structure, and content arrangement."
+        "Built a draft profile website for the institution in WordPress, covering page layout, menu structure, and content arrangement."
       ]
     },
     {
-      when: "May 2024 — Jun 2024",
+      when: "May 2024 - Jun 2024",
       role: "IT Division Intern",
       org: "Dinas Komunikasi dan Informatika Kota Malang",
       points: [
@@ -176,7 +176,7 @@ const PORTFOLIO = {
       ]
     },
     {
-      when: "Feb 2024 — Mar 2024",
+      when: "Feb 2024 - Mar 2024",
       role: "Public Service Intern",
       org: "Kantor Kecamatan Klojen, Malang",
       points: [

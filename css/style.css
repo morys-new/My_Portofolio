@@ -259,7 +259,7 @@ em { font-style: italic; color: var(--accent-soft); }
 .exp__role { font-family: "Fraunces", serif; font-size: 1.25rem; font-weight: 600; }
 .exp__list { list-style: none; margin-top: 12px; display: grid; gap: 8px; }
 .exp__list li { position: relative; padding-left: 18px; color: var(--muted); font-size: .96rem; }
-.exp__list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+.exp__list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
 
 .skills { margin-top: 52px; padding-top: 30px; border-top: 1px dashed var(--line); }
 .skills__label { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
@@ -452,7 +452,7 @@ em { font-style: italic; color: var(--accent-soft); }
 /* ====================================================================
    IKON
    Warnanya dipatok per jenis, bukan mengikuti aksen track: yang dicari
-   mata adalah BEDANYA — tautan hidup, PDF, unduhan, dan gambar harus
+   mata adalah BEDANYA - tautan hidup, PDF, unduhan, dan gambar harus
    bisa dibedakan sebelum tulisannya dibaca.
    ==================================================================== */
 .ico { display: inline-flex; flex: none; }
